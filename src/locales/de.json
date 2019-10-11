@@ -37,7 +37,8 @@
     "survey": "Survey",
     "chat": "Chat",
     "ui": "UI",
-    "docs":"Docs"
+    "docs":"Docs",
+    "account":"Account"
   },
   "pages": {
     "magic-is-in-the-details": "MAGIC IS IN THE DETAILS",

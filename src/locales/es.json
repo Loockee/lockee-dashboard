@@ -36,7 +36,8 @@
     "survey": "Encuesta",
     "chat": "Chatea",
     "ui": "IU",
-    "docs":"Docs"
+    "docs":"Docs",
+    "account":"Account"
   },
   "pages": {
     "magic-is-in-the-details": "MAGIC IS IN THE DETAILS",
