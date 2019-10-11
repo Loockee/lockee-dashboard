@@ -1,4 +1,7 @@
-# piaf-vue
+# Vue base dashboard
+
+> A part of the project will use this dashboard. Another will use the 
+> core admin board which will be developped using angular (8 as for now)
 
 ## Project setup
 ```
