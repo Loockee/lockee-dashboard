@@ -18,6 +18,7 @@
   },
   "menu": {
     "app": "Home",
+    "loockee": "loockee",
     "piaf": "Piaf",
     "dashboards": "Dashboards",
     "second-menu": "Second Menu",

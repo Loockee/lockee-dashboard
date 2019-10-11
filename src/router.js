@@ -2,21 +2,21 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import AuthRequired from './utils/AuthRequired'
 
-Vue.use(Router)
+Vue.use(Router);
 
 const routes = [
   {
     path: '/',
     component: () => import(/* webpackChunkName: "app" */ './views/app'),
-    redirect: '/app/piaf',
+    redirect: '/app/loockee',
     beforeEnter: AuthRequired,
     children: [
       {
-        path: 'app/piaf',
-        component: () => import(/* webpackChunkName: "piaf" */ './views/app/piaf'),
-        redirect: '/app/piaf/start',
+        path: 'app/loockee',
+        component: () => import(/* webpackChunkName: "loockee" */ './views/app/loockee'),
+        redirect: '/app/loockee/start',
         children: [
-          { path: 'start', component: () => import(/* webpackChunkName: "piaf" */ './views/app/piaf/Start') }
+          { path: 'start', component: () => import(/* webpackChunkName: "loockee" */ './views/app/loockee/Start') }
         ]
       },
       {

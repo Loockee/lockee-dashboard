@@ -1,6 +1,6 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import { currentUser } from '../../constants/config'
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { currentUser } from '../../constants/config';
 
 export default {
   state: {
@@ -15,45 +15,44 @@ export default {
   },
   mutations: {
     setUser (state, payload) {
-      state.currentUser = payload
-      state.processing = false
-      state.loginError = null
+      state.currentUser = payload;
+      state.processing = false;
+      state.loginError = null;
     },
     setLogout (state) {
-      state.currentUser = null
-      state.processing = false
-      state.loginError = null
+      state.currentUser = null;
+      state.processing = false;
+      state.loginError = null;
     },
     setProcessing (state, payload) {
-      state.processing = payload
-      state.loginError = null
+      state.processing = payload;
+      state.loginError = null;
     },
     setError (state, payload) {
-      state.loginError = payload
-      state.currentUser = null
-      state.processing = false
+      state.loginError = payload;
+      state.currentUser = null;
+      state.processing = false;
     },
     clearError (state) {
-      state.loginError = null
+      state.loginError = null;
     }
   },
   actions: {
-
     login ({ commit }, payload) {
-      commit('clearError')
-      commit('setProcessing', true)
+      commit('clearError');
+      commit('setProcessing', true);
       firebase
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
-            const item = { uid: user.user.uid, ...currentUser }
-            localStorage.setItem('user', JSON.stringify(item))
-            commit('setUser', { uid: user.user.uid, ...currentUser })
+            const item = { uid: user.user.uid, ...currentUser };
+            localStorage.setItem('user', JSON.stringify(item));
+            commit('setUser', { uid: user.user.uid, ...currentUser });
           },
           err => {
-            localStorage.removeItem('user')
-            commit('setError', err.message)
+            localStorage.removeItem('user');
+            commit('setError', err.message);
           }
         )
     },
@@ -62,9 +61,9 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          localStorage.removeItem('user')
-          commit('setLogout')
-        }, _error => {})
+          localStorage.removeItem('user');
+          commit('setLogout');
+        }, _error => {});
     }
   }
 }

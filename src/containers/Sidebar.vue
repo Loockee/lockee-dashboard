@@ -59,12 +59,14 @@
 import {
     mapGetters,
     mapMutations
-} from 'vuex'
+} from 'vuex';
+
 import {
     menuHiddenBreakpoint,
     subHiddenBreakpoint
-} from '../constants/config'
-import menuItems from '../constants/menu'
+} from '../constants/config';
+
+import menuItems from '../constants/menu';
 
 export default {
     data() {
@@ -73,31 +75,34 @@ export default {
             isMenuOver: false,
             menuItems,
             viewingParentMenu: ''
-        }
+        };
     },
+
     mounted() {
-        this.selectMenu()
-        window.addEventListener('resize', this.handleWindowResize)
-        document.addEventListener('click', this.handleDocumentClick)
-        this.handleWindowResize()
+        this.selectMenu();
+        window.addEventListener('resize', this.handleWindowResize);
+        document.addEventListener('click', this.handleDocumentClick);
+        this.handleWindowResize();
 
     },
+
     beforeDestroy() {
-        document.removeEventListener('click', this.handleDocumentClick)
-        window.removeEventListener('resize', this.handleWindowResize)
+        document.removeEventListener('click', this.handleDocumentClick);
+        window.removeEventListener('resize', this.handleWindowResize);
     },
 
     methods: {
         ...mapMutations(['changeSideMenuStatus', 'addMenuClassname', 'changeSelectedMenuHasSubItems']),
         selectMenu() {
-            const currentParentUrl = this.$route.path.split('/').filter(x => x !== '')[1]
+            const currentParentUrl = this.$route.path.split('/').filter(x => x !== '')[1];
             if (currentParentUrl !== undefined || currentParentUrl !== null) {
-                this.selectedParentMenu = currentParentUrl.toLowerCase()
+                this.selectedParentMenu = currentParentUrl.toLowerCase();
             } else {
-                this.selectedParentMenu = 'dashboards'
+                this.selectedParentMenu = 'dashboards';
             }
             this.isCurrentMenuHasSubItem();
         },
+
         isCurrentMenuHasSubItem() {
             const menuItem = this.menuItems.find(x => x.id === this.selectedParentMenu);
             const isCurrentMenuHasSubItem = menuItem && menuItem.subs && menuItem.subs.length > 0 ? true : false;
@@ -107,22 +112,21 @@ export default {
                         step: 0,
                         classNames: this.menuType,
                         selectedMenuHasSubItems: false
-                    })
+                    });
                 }
             }
-
             return isCurrentMenuHasSubItem;
         },
 
         changeSelectedParentHasNoSubmenu(parentMenu) {
-            this.selectedParentMenu = parentMenu
-            this.viewingParentMenu = parentMenu
-            this.changeSelectedMenuHasSubItems(false)
+            this.selectedParentMenu = parentMenu;
+            this.viewingParentMenu = parentMenu;
+            this.changeSelectedMenuHasSubItems(false);
             this.changeSideMenuStatus({
                 step: 0,
                 classNames: this.menuType,
                 selectedMenuHasSubItems: false
-            })
+            });
         },
 
         openSubMenu(e, menuItem) {
@@ -137,7 +141,6 @@ export default {
                 const currentClasses = this.menuType ?
                     this.menuType.split(' ').filter(x => x !== '') :
                     '';
-
                 if (!currentClasses.includes('menu-mobile')) {
                     if (
                         currentClasses.includes('menu-sub-hidden') &&
@@ -178,80 +181,85 @@ export default {
                 this.viewingParentMenu = selectedParent;
             }
         },
+
         handleDocumentClick(e) {
             if (!this.isMenuOver) {
-                let cont = true
-                var path = e.path || (e.composedPath && e.composedPath())
-
+                let cont = true;
+                const path = e.path || (e.composedPath && e.composedPath());
                 path.map(p => {
-                    if (p.nodeName !== 'svg' && p.nodeName !== 'rect' && p.className !== undefined && p.className.indexOf('menu-button') > -1) {
+                    if (p.nodeName !== 'svg' && p.nodeName !== 'rect' &&
+                        p.className !== undefined &&
+                        p.className.indexOf('menu-button') > -1) {
                         cont = false
                     }
-                })
-
+                });
                 this.viewingParentMenu = '';
-                this.selectMenu()
+                this.selectMenu();
                 if (cont || !this.selectedMenuHasSubItems) {
-                    this.toggle()
+                    this.toggle();
                 }
             }
         },
+
         toggle() {
-            const currentClasses = this.menuType.split(' ').filter(x => x !== '')
+            const currentClasses = this.menuType.split(' ').filter(x => x !== '');
             if (currentClasses.includes('menu-sub-hidden') && this.menuClickCount === 3) {
                 this.changeSideMenuStatus({
                     step: 2,
                     classNames: this.menuType,
                     selectedMenuHasSubItems: this.selectedMenuHasSubItems
-                })
+                });
             } else if (currentClasses.includes('menu-hidden') || currentClasses.includes('menu-mobile')) {
                 if (!(this.menuClickCount === 1 && !this.selectedMenuHasSubItems)) {
                     this.changeSideMenuStatus({
                         step: 0,
                         classNames: this.menuType,
                         selectedMenuHasSubItems: this.selectedMenuHasSubItems
-                    })
+                    });
                 }
             }
         },
+
         // Resize
         handleWindowResize(event) {
             if (event && !event.isTrusted) {
-                return
+                return;
             }
-            let nextClasses = this.getMenuClassesForResize(this.menuType)
+            let nextClasses = this.getMenuClassesForResize(this.menuType);
             this.changeSideMenuStatus({
                 step: 0,
                 classNames: nextClasses.join(' '),
                 selectedMenuHasSubItems: this.selectedMenuHasSubItems
-            })
+            });
         },
+
         getMenuClassesForResize(classes) {
-            let nextClasses = classes.split(' ').filter(x => x !== '')
-            const windowWidth = window.innerWidth
+            let nextClasses = classes.split(' ').filter(x => x !== '');
+            const windowWidth = window.innerWidth;
 
             if (windowWidth < menuHiddenBreakpoint) {
                 nextClasses.push('menu-mobile')
             } else if (windowWidth < subHiddenBreakpoint) {
-                nextClasses = nextClasses.filter(x => x !== 'menu-mobile')
+                nextClasses = nextClasses.filter(x => x !== 'menu-mobile');
                 if (
                     nextClasses.includes('menu-default') &&
                     !nextClasses.includes('menu-sub-hidden')
                 ) {
-                    nextClasses.push('menu-sub-hidden')
+                    nextClasses.push('menu-sub-hidden');
                 }
             } else {
-                nextClasses = nextClasses.filter(x => x !== 'menu-mobile')
+                nextClasses = nextClasses.filter(x => x !== 'menu-mobile');
                 if (
                     nextClasses.includes('menu-default') &&
                     nextClasses.includes('menu-sub-hidden')
                 ) {
-                    nextClasses = nextClasses.filter(x => x !== 'menu-sub-hidden')
+                    nextClasses = nextClasses.filter(x => x !== 'menu-sub-hidden');
                 }
             }
-            return nextClasses
+            return nextClasses;
         },
     },
+
     computed: {
         ...mapGetters({
             menuType: 'getMenuType',
@@ -259,26 +267,25 @@ export default {
             selectedMenuHasSubItems: 'getSelectedMenuHasSubItems'
         })
     },
+
     watch: {
         '$route'(to, from) {
             if (to.path !== from.path) {
-
                 const toParentUrl = to.path.split('/').filter(x => x !== '')[1];
                 if (toParentUrl !== undefined || toParentUrl !== null) {
-                    this.selectedParentMenu = toParentUrl.toLowerCase()
+                    this.selectedParentMenu = toParentUrl.toLowerCase();
                 } else {
-                    this.selectedParentMenu = 'dashboards'
+                    this.selectedParentMenu = 'dashboards';
                 }
                 // this.isCurrentMenuHasSubItem();
-                this.selectMenu()
+                this.selectMenu();
                 this.toggle();
                 this.changeSideMenuStatus({
                     step: 0,
                     classNames: this.menuType,
                     selectedMenuHasSubItems: this.selectedMenuHasSubItems
-                })
-
-                window.scrollTo(0, top)
+                });
+                window.scrollTo(0, top);
             }
         }
     }

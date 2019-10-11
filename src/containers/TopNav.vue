@@ -34,14 +34,20 @@
 
     <div class="navbar-right">
       <div class="d-none d-md-inline-block align-middle mr-3">
-        <switches id="tool-mode-switch" v-model="isDarkActive" theme="custom" class="vue-switcher-small"
+        <switches id="tool-mode-switch"
+                  v-model="isDarkActive"
+                  theme="custom"
+                  class="vue-switcher-small"
                   color="primary"/>
         <b-tooltip target="tool-mode-switch" placement="left" title="Dark Mode"></b-tooltip>
       </div>
       <div class="header-icons d-inline-block align-middle">
         <div class="position-relative d-none d-sm-inline-block">
-          <b-dropdown variant="empty" size="sm" right toggle-class="header-icon"
-                      menu-class="position-absolute mt-3 iconMenuDropdown" no-caret>
+          <b-dropdown variant="empty"
+                      size="sm"
+                      right toggle-class="header-icon"
+                      menu-class="position-absolute mt-3 iconMenuDropdown"
+                      no-caret>
             <template slot="button-content">
               <i class="simple-icon-grid"/>
             </template>

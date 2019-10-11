@@ -1,5 +1,5 @@
 export const defaultMenuType = 'menu-default'; // 'menu-default', 'menu-sub-hidden', 'menu-hidden';
-export const defaultStartPath = '/app/piaf/start';
+export const defaultStartPath = '/app/loockee/start';
 export const searchPath = '#';
 export const buyUrl = 'https://1.envato.market/nEyZa';
 
