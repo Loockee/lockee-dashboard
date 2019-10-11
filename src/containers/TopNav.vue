@@ -121,29 +121,32 @@
 </template>
 
 <script>
-    import Switches from 'vue-switches'
-    import notifications from '../data/notifications'
+    import Switches from 'vue-switches';
+    import notifications from '../data/notifications';
 
     import {
         mapGetters,
         mapMutations,
         mapActions
-    } from 'vuex'
+    } from 'vuex';
+
     import {
         MenuIcon,
         MobileMenuIcon
-    } from '../components/Svg'
+    } from '../components/Svg';
+
     import {
         searchPath,
         menuHiddenBreakpoint,
         localeOptions,
         buyUrl,
         defaultColor
-    } from '../constants/config'
+    } from '../constants/config';
+
     import {
         getDirection,
         setDirection
-    } from '../utils'
+    } from '../utils';
 
     export default {
         components: {
@@ -171,73 +174,74 @@
             ...mapActions(['setLang', 'signOut']),
             search() {
                 this.$router.push(`${this.searchPath}?search=${this.searchKeyword}`);
-                this.searchKeyword = ''
+                this.searchKeyword = '';
             },
+
             searchClick() {
                 if (window.innerWidth < this.menuHiddenBreakpoint) {
-                    if (!this.isMobileSearch) {
-                        this.isMobileSearch = true
-                    } else {
-                        this.search()
-                        this.isMobileSearch = false
-                    }
+                    this.isMobileSearch = !this.isMobileSearch;
+                    this.isMobileSearch || this.search();
                 } else {
-                    this.search()
+                    this.search();
                 }
             },
+
             handleDocumentforMobileSearch() {
                 if (!this.isSearchOver) {
-                    this.isMobileSearch = false
-                    this.searchKeyword = ''
+                    this.isMobileSearch = false;
+                    this.searchKeyword = '';
                 }
             },
 
             changeLocale(locale, direction) {
-                const currentDirection = getDirection().direction
+                const currentDirection = getDirection().direction;
                 if (direction !== currentDirection) {
-                    setDirection(direction)
+                    setDirection(direction);
                 }
 
-                this.setLang(locale)
+                this.setLang(locale);
             },
+
             logout() {
                 this.signOut().then(() => {
-                    this.$router.push('/user/login')
+                    this.$router.push('/user/login');
                 })
             },
 
             toggleFullScreen() {
-                const isInFullScreen = this.isInFullScreen()
+                const isInFullScreen = this.isInFullScreen();
 
-                var docElm = document.documentElement
+                var docElm = document.documentElement;
                 if (!isInFullScreen) {
                     if (docElm.requestFullscreen) {
-                        docElm.requestFullscreen()
+                        docElm.requestFullscreen();
                     } else if (docElm.mozRequestFullScreen) {
-                        docElm.mozRequestFullScreen()
+                        docElm.mozRequestFullScreen();
                     } else if (docElm.webkitRequestFullScreen) {
-                        docElm.webkitRequestFullScreen()
+                        docElm.webkitRequestFullScreen();
                     } else if (docElm.msRequestFullscreen) {
-                        docElm.msRequestFullscreen()
+                        docElm.msRequestFullscreen();
                     }
                 } else {
                     if (document.exitFullscreen) {
-                        document.exitFullscreen()
+                        document.exitFullscreen();
                     } else if (document.webkitExitFullscreen) {
-                        document.webkitExitFullscreen()
+                        document.webkitExitFullscreen();
                     } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen()
+                        document.mozCancelFullScreen();
                     } else if (document.msExitFullscreen) {
-                        document.msExitFullscreen()
+                        document.msExitFullscreen();
                     }
                 }
-                this.fullScreen = !isInFullScreen
+                this.fullScreen = !isInFullScreen;
             },
+
             getThemeColor() {
                 return localStorage.getItem('themeColor') ?
                     localStorage.getItem('themeColor') :
-                    defaultColor
+                    defaultColor;
             },
+
             isInFullScreen() {
                 return ((document.fullscreenElement && true) ||
                     (document.webkitFullscreenElement && true) ||
@@ -253,44 +257,48 @@
                 selectedMenuHasSubItems: 'getSelectedMenuHasSubItems'
             })
         },
+
         beforeDestroy() {
             document.removeEventListener('click', this.handleDocumentforMobileSearch)
         },
+
         created() {
-            const color = this.getThemeColor()
-            this.isDarkActive = color.indexOf('dark') > -1
+            const color = this.getThemeColor();
+            this.isDarkActive = color.indexOf('dark') > -1;
         },
+
         watch: {
             '$i18n.locale'(to, from) {
                 if (from !== to) {
-                    this.$router.go(this.$route.path)
+                    this.$router.go(this.$route.path);
                 }
             },
             isDarkActive(val) {
-                let color = this.getThemeColor()
-                let isChange = false
+                let color = this.getThemeColor();
+                let isChange = false;
                 if (val && color.indexOf('light') > -1) {
-                    isChange = true
-                    color = color.replace('light', 'dark')
+                    isChange = true;
+                    color = color.replace('light', 'dark');
                 } else if (!val && color.indexOf('dark') > -1) {
-                    isChange = true
-                    color = color.replace('dark', 'light')
+                    isChange = true;
+                    color = color.replace('dark', 'light');
                 }
                 if (isChange) {
-                    localStorage.setItem('themeColor', color)
+                    localStorage.setItem('themeColor', color);
                     setTimeout(() => {
-                        window.location.reload()
-                    }, 500)
+                        window.location.reload();
+                    }, 500);
                 }
             },
+
             isMobileSearch(val) {
                 if (val) {
-                    document.addEventListener('click', this.handleDocumentforMobileSearch)
+                    document.addEventListener('click', this.handleDocumentforMobileSearch);
                 } else {
                     document.removeEventListener(
                         'click',
                         this.handleDocumentforMobileSearch
-                    )
+                    );
                 }
             }
         }
