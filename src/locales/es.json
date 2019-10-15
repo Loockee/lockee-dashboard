@@ -44,6 +44,8 @@
     "magic-is-in-the-details": "MAGIC IS IN THE DETAILS",
     "error-title": "Ooops... looks like an error occurred!",
     "error-code": "Error Code",
-    "go-back-home": "GO BACK HOME"
+    "go-back-home": "GO BACK HOME",
+    "please": "please",
+    "login": "login"
   }
 }

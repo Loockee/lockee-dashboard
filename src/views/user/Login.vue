@@ -3,8 +3,8 @@
     <b-colxx xxs="12" md=10  class="mx-auto my-auto">
       <b-card class="auth-card" no-body>
           <div class="position-relative image-side ">
-            <p class=" text-white h2">{{ $t('pages.magic-is-in-the-details') }}</p>
-              <p class="white mb-0">Please use your credentials to login.<br>If you are not a member, please
+            <p class="text-capitalize text-black h2">{{ $t('pages.please') }} {{ $t('pages.login') }}</p>
+              <p class="black mb-0">Please use your credentials to login.<br>If you are not a member, please
                 <router-link tag="a" to="/user/register" class="white">register</router-link>.
               </p>
           </div>
@@ -30,19 +30,23 @@
     </b-colxx>
   </b-row>
 </template>
+
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
+
   data () {
     return {
       email: '',
       password: ''
-    }
+    };
   },
+
   computed: {
     ...mapGetters(['currentUser', 'processing', 'loginError'])
   },
+
   methods: {
     ...mapActions(['login']),
     formSubmit () {
@@ -51,6 +55,7 @@ export default {
       this.login({ email: this.email, password: this.password })
     }
   },
+
   watch: {
     currentUser (val) {
       if (val && val.uid && val.uid.length > 0) {
