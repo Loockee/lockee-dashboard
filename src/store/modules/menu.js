@@ -3,7 +3,7 @@ const state = {
   menuType: defaultMenuType,
   clickCount: 0,
   selectedMenuHasSubItems: defaultMenuType === 'menu-default'
-}
+};
 
 const getters = {
   getMenuType(state) {
@@ -15,7 +15,7 @@ const getters = {
   getMenuClickCount(state) {
     return state.clickCount % 4
   }
-}
+};
 
 const mutations = {
   changeSideMenuStatus(state, payload) {
@@ -78,23 +78,25 @@ const mutations = {
     if (currentClasses.includes('menu-mobile')) {
       nextClasses += ' menu-mobile';
     }
-    state.menuType = nextClasses
-    state.clickCount = clickIndex
-    state.selectedMenuHasSubItems=selectedMenuHasSubItems
+    state.menuType = nextClasses;
+    state.clickCount = clickIndex;
+    state.selectedMenuHasSubItems=selectedMenuHasSubItems;
   },
 
   changeSelectedMenuHasSubItems(state, payload) {
-    state.selectedMenuHasSubItems = payload
+    state.selectedMenuHasSubItems = payload;
   },
+
   addMenuClassname(state, payload) {
-    const { classname, currentClasses } = payload
+    const { classname, currentClasses } = payload;
 
     const nextClasses =
       !currentClasses.indexOf(classname) > -1
         ? currentClasses + ' ' + classname
-        : currentClasses
-    state.menuType = nextClasses
+        : currentClasses;
+    state.menuType = nextClasses;
   },
+
   changeSideMenuForMobile(state, strCurrentClasses) {
 
     const currentClasses = strCurrentClasses ? strCurrentClasses.split(' ').filter(x => x !== '' && x !== 'sub-show-temporary') : '';
@@ -105,16 +107,16 @@ const mutations = {
       nextClasses = currentClasses.join(' ') + ' main-show-temporary';
     }
 
-    state.menuType = nextClasses
-    state.menuClickCount = 0
+    state.menuType = nextClasses;
+    state.menuClickCount = 0;
   }
-}
+};
 
-const actions = {}
+const actions = {};
 
 export default {
   state,
   getters,
   mutations,
   actions
-}
+};

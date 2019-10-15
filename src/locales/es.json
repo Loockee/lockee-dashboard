@@ -18,6 +18,7 @@
   },
   "menu": {
     "app": "Inicio",
+    "loockee": "loockee",
     "piaf": "Piaf",
     "dashboards": "Tableros",
     "second-menu": "Segundo Menú",
@@ -36,12 +37,15 @@
     "survey": "Encuesta",
     "chat": "Chatea",
     "ui": "IU",
-    "docs":"Docs"
+    "docs":"Docs",
+    "account":"Account"
   },
   "pages": {
     "magic-is-in-the-details": "MAGIC IS IN THE DETAILS",
     "error-title": "Ooops... looks like an error occurred!",
     "error-code": "Error Code",
-    "go-back-home": "GO BACK HOME"
+    "go-back-home": "GO BACK HOME",
+    "please": "please",
+    "login": "login"
   }
 }

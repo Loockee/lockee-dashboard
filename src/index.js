@@ -9,7 +9,7 @@ import { defaultColor } from './constants/config'
 - Remove multicolor section in current file
 - Uncomment the two lines below
 
-import "./assets/css/sass/themes/piaf.light.orange.scss";
+import "./assets/css/sass/themes/loockee.light.orange.scss";
 import "./main";
 */
 
@@ -20,7 +20,7 @@ if (localStorage.getItem('themeColor')) {
   color = localStorage.getItem('themeColor')
 }
 let render = () => {
-    import('./assets/css/sass/themes/piaf.' + color + '.scss').then(x => require('./main'))
+    import('./assets/css/sass/themes/loockee.' + color + '.scss').then(x => require('./main'))
 }
 
 render()
