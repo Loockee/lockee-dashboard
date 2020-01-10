@@ -14,7 +14,7 @@ const routes = [
       {
         path: 'app/loockee',
         component: () => import(/* webpackChunkName: "loockee" */ './views/app/loockee'),
-        redirect: '/app/loockee/start',
+        redirect: '/app/loockee/home',
         children: [
           { path: 'home', component: () => import(/* webpackChunkName: "loockee" */ './views/app/loockee/Home') }
         ]
