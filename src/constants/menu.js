@@ -3,11 +3,41 @@ const data = [{
   icon: "iconsminds-brain",
   label: "menu.loockee",
   to: "/app/loockee",
-  subs: [{
-    icon: "simple-icon-paper-plane",
-    label: "menu.start",
-    to: "/app/loockee/start"
-  }]},
+  subs: [
+    {
+      icon: "simple-icon-paper-plane",
+      label: "menu.start",
+      to: "/app/loockee/start"
+    },
+    {
+      icon: "simple-icon-paper-plane",
+      label: "menu.home",
+      to: "/app/loockee/home"
+    }
+  ]},
+  {
+    id: "konnekt",
+    icon: "iconsminds-chemical",
+    label: "menu.konnekt",
+    to: "/app/konnekt",
+    subs: [
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.home",
+        to: "/app/konnekt/home"
+      },
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.profiles",
+        to: "/app/konnekt/profile"
+      },
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.mission-control",
+        to: "/app/konnekt/mission-control"
+      }
+    ]
+  },
   /*{
     id: "second-menu",
     icon: "iconsminds-chemical",

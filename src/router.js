@@ -20,6 +20,15 @@ const routes = [
         ]
       },
       {
+        path: 'app/konnekt',
+        component: () => import(/* webpackChunkName: "konnekt" */ './views/app/konnekt'),
+        redirect: '/app/konnekt/home',
+        children: [
+          { path: 'home', component: () => import(/* webpackChunkName: "konnekt" */ './views/app/konnekt/Home') },
+          { path: 'profile/:id', component: () => import(/* webpackChunkName: "konnekt" */ './views/app/konnekt/Profile') }
+        ]
+      },
+      {
         path: 'app/second-menu',
         component: () => import(/* webpackChunkName: "second-menu" */ './views/app/secondMenu'),
         redirect: '/app/second-menu/second',

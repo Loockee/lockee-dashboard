@@ -3,7 +3,7 @@
     <div class="main-menu">
         <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
             <ul class="list-unstyled">
-                <li v-for="(item,index) in menuItems" :class="{ 'active' : (selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id }" :key="`parent_${item.id}`" :data-flag="item.id">
+                <li v-for="(item,index) in menuItems" v-bind:key="index" :class="{ 'active' : (selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id }" :key="`parent_${item.id}`" :data-flag="item.id">
                     <a v-if="item.newWindow" :href="item.to" rel="noopener noreferrer" target="_blank">
                         <i :class="item.icon" />
                         {{ $t(item.label) }}
@@ -20,7 +20,7 @@
     <div class="sub-menu">
         <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
             <ul v-for="(item,itemIndex) in menuItems" :class="{'list-unstyled':true, 'd-block' : (selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id }" :data-parent="item.id" :key="`sub_${item.id}`">
-                <li v-for="(sub,subIndex) in item.subs" :class="{'has-sub-item' : sub.subs && sub.subs.length > 0 , 'active' : $route.path.indexOf(sub.to)>-1}">
+                <li v-for="(sub,subIndex) in item.subs" v-bind:key="subIndex" :class="{'has-sub-item' : sub.subs && sub.subs.length > 0 , 'active' : $route.path.indexOf(sub.to)>-1}">
                     <a v-if="sub.newWindow" :href="sub.to" rel="noopener noreferrer" target="_blank">
                         <i :class="sub.icon" />
                         <span>{{ $t(sub.label) }}</span>
@@ -41,7 +41,6 @@
                                     </router-link>
                                 </li>
                             </ul>
-
                         </b-collapse>
                     </template>
                     <router-link v-else :to="sub.to">
@@ -95,7 +94,7 @@ export default {
         ...mapMutations(['changeSideMenuStatus', 'addMenuClassname', 'changeSelectedMenuHasSubItems']),
         selectMenu() {
             const currentParentUrl = this.$route.path.split('/').filter(x => x !== '')[1];
-            if (currentParentUrl !== undefined || currentParentUrl !== null) {
+            if (currentParentUrl) {
                 this.selectedParentMenu = currentParentUrl.toLowerCase();
             } else {
                 this.selectedParentMenu = 'dashboards';
